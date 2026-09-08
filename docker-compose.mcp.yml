@@ -1,0 +1,15 @@
+services:
+  hashim-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile.mcp
+    container_name: hashim-mcp
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://hashim:hashim@postgres:5432/hashim}
+      BINANCE_BASE: ${BINANCE_BASE:-https://fapi.binance.com}
+      MCP_PORT: 8001
+    depends_on:
+      - postgres
+    ports:
+      - "8001:8001"
